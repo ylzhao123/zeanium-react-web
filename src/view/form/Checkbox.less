@@ -1,0 +1,47 @@
+@import "../../less/rt.variables.less";
+
+
+.rt-status(@color: @rt-color-default){
+    &>.mark{
+        color: @color !important;
+        border-color: @color !important;
+    }
+}
+
+.rt-checkbox {
+    float: left;
+    cursor: pointer;
+    color: #434242;
+    &>input{
+        display: none;
+    }
+    .mark{
+        /*display: inline-block;*/
+        border-radius: 3px;
+        border: 1px solid transparent;
+        width: 16px;
+        height: 16px;
+        font-size: 16px;
+        margin-right: 3px;
+        .icon{
+            opacity: 0;
+            -webkit-transition: all .3s;
+            -moz-transition: all .3s;
+            -o-transition: all .3s;
+        }
+    }
+
+    .rt-status(@rt-color-default);
+
+    &[data-checked="true"]{
+        .icon{
+            opacity: 1;
+        }
+        .rt-status(@rt-checked-color);
+    }
+
+    &[data-disabled="true"]{
+        .rt-status(@rt-disabled-color);
+    }
+
+}

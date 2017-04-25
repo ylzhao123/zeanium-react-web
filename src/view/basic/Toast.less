@@ -1,0 +1,70 @@
+@import "../../less/rt.variables.less";
+
+
+.rt-status(@color: @rt-color-primary){
+    color: #FFF;
+    border-color: @color;
+    background-color: @color;
+}
+
+.rt-toast {
+    position: fixed;
+    top: -500px;
+    opacity: 0.5;
+    padding: 16px 8px;
+    width: 60%;
+    left: 20%;
+    font-size: 20px;
+    z-index: 100;
+    word-wrap: break-word;
+    text-align: center;
+    margin: 0 auto;
+    -moz-transition: top .5s ease-in-out;
+    -webkit-transition: top .5s ease-in-out;
+    -o-transition: top -5s ease-in-out;
+    &:hover{
+        box-shadow:0 0 10px #2db7f5;
+    }
+
+    .rt-status(@rt-color-primary);
+
+    &.default{
+        .rt-status(@rt-color-default);
+    }
+
+    &.primary{
+        .rt-status(@rt-color-primary);
+    }
+
+    &.success{
+        .rt-status(@rt-color-success);
+    }
+
+    &.info{
+        .rt-status(@rt-color-info);
+    }
+
+    &.warning{
+        .rt-status(@rt-color-warning);
+    }
+
+    &.danger{
+        .rt-status(@rt-color-danger);
+    }
+
+    &[data-active="true"]{
+        top: 50px;
+        opacity: 1;
+    }
+
+    &>.toast-close{
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        cursor: pointer;
+        padding: 5px;
+        &:hover{
+            color: #ec1961;
+        }
+    }
+}

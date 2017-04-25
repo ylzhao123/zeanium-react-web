@@ -1,0 +1,30 @@
+.rt-pull-refresh {
+    position: absolute;
+    width: 100%;
+    .tip {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: 60px;
+        width: 100%;
+        &.down-refresh{
+            position: absolute;
+            z-index: 1;
+            top: 0px;
+        }
+        &.up-refresh{
+            position: absolute;
+            z-index: -1;
+            bottom: 0px;
+        }
+    }
+
+    .content{
+        -webkit-transition: 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        -moz-transition: 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        -o-transition: 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        transition: 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+
+}

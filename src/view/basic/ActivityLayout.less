@@ -1,0 +1,31 @@
+.rt-activity-layout {
+    &[data-direction="h"]{
+        &>.rt-layout-body {
+            border-left: 1px solid #3d3d3d;
+            &>.activity-bar {
+                position: absolute;
+                /*background-color: #ccc;*/
+                width: 100%;
+                height: 100px;
+                top: 50%;
+                margin-top: -50px;
+            }
+        }
+    }
+
+    &[data-direction="v"]{
+        &>.rt-layout-body {
+            border-top: 1px solid #3d3d3d;
+            border-bottom: 1px solid #3d3d3d;
+            &>.activity-bar {
+                position: absolute;
+                /*background-color: #ccc;*/
+                width: 100px;
+                height: 100%;
+                left: 50%;
+                margin-left: -50px;
+            }
+        }
+    }
+
+}

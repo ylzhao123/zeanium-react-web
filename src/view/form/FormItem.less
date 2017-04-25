@@ -1,0 +1,95 @@
+@import "../../less/rt.variables.less";
+
+.rt-status(@color: @rt-color-default){
+    border-bottom-color: @color;
+}
+
+.rt-form-item{
+    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.075);
+    display: flex;
+    margin: 1px 0px;
+
+    &>*:last-child{
+        flex: 1;
+    }
+
+    &.default{
+        .rt-status(@rt-color-default);
+    }
+
+    &.primary{
+        .rt-status(@rt-color-primary);
+    }
+
+    &.success{
+        .rt-status(@rt-color-default);
+    }
+
+    &.info{
+        .rt-status(@rt-color-info);
+    }
+
+    &.warning{
+        .rt-status(@rt-color-warning);
+    }
+
+    &.danger{
+        .rt-status(@rt-color-danger);
+    }
+
+    &>.title{
+        min-width: 10rem;
+        /*text-indent: 0.8rem;*/
+        line-height: 3rem;
+    }
+    &>.icon{
+        text-align: center;
+        min-width: 2rem;
+        margin: auto;
+    }
+
+    &>.suffix{
+        min-width: 3.2rem;
+        line-height: 3rem;
+        text-align: right;
+    }
+
+    input, textarea, select, &.input{
+        background-color: transparent;
+        width: 100%;
+        line-height: 30px;
+        border: none;
+        &:focus, &:active{
+            color: #0ea6eb;
+            color: #434242;
+        }
+        &.align-left{
+            text-align: left;
+            .input{
+
+            }
+        }
+        &.align-right{
+            text-align: right;
+        }
+    }
+
+
+    &[data-required=true]{
+        /*
+        &::after{
+            position: absolute;
+            top: -1.4rem;
+            left: -0px;
+            content: "\f069";
+            font-family: FontAwesome;
+            font-size: 1rem;
+            color: #EA2626;
+        }*/
+    }
+
+    textarea{
+        min-height: 12rem;
+    }
+}

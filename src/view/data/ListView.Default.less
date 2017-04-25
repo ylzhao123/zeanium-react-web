@@ -1,0 +1,22 @@
+@import "../../less/rt.variables.less";
+
+.rt-list-view.rt-list-view-default{
+    border: 1px solid @rt-color-default;
+    width: auto !important;
+    .rt-list-view-item {
+        padding: 6px;
+        text-align: left;
+        .fa{
+            margin: 3px;
+        }
+        &[data-checked="true"]{
+            background: @rt-color-primary;
+            color: #FFF;
+            opacity: 0.8;
+        }
+        &:hover{
+            background: @rt-color-primary;
+            color: #FFF;
+        }
+    }
+}

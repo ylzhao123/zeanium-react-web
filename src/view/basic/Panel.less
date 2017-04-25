@@ -1,0 +1,54 @@
+.rt-panel{
+    .rt-panel-close{
+
+    }
+    &.rt-active {
+        .rt-panel-header{
+            &::before{
+                -webkit-transform: rotate(90deg);
+                -ms-transform: rotate(90deg);
+                transform: rotate(90deg);
+            }
+        }
+        .rt-panel-body, .rt-panel-footer{
+            display: block;
+        }
+    }
+    &.rt-disabled{
+        .rt-panel-header{
+            cursor: default;
+            pointer-events: none;
+        }
+    }
+    &>.rt-panel-header{
+        -webkit-transition: background-color .2s ease-out;
+        transition: background-color .2s ease-out;
+        padding: 0.5rem;
+        cursor: pointer;
+        &::before{
+            content: "\f0da";
+            display: inline-block;
+            font: normal normal normal 1.6rem/1 FontAwesome,sans-serif;
+            font-size: inherit;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-transform: translate(0,0);
+            -ms-transform: translate(0,0);
+            transform: translate(0,0);
+            -webkit-transition: -webkit-transform .2s ease;
+            transition: -webkit-transform .2s ease;
+            transition: transform .2s ease;
+            transition: transform .2s ease,-webkit-transform .2s ease;
+            -webkit-transform: rotate(0);
+            -ms-transform: rotate(0);
+            transform: rotate(0);
+            margin-right: 5px;
+        }
+    }
+    &>.rt-panel-body{
+        padding: 0rem 1.4rem;
+        font-size: 1.4rem;
+        display: none;
+    }
+}

@@ -1,0 +1,80 @@
+@import "../../less/rt.variables.less";
+
+.rt-status(@color: @rt-color-default){
+    border-bottom-color: @color;
+}
+
+.rt-form-item.web-inline{
+    position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.075);
+    display: flex;
+    margin: 5px 0px;
+
+    &.default{
+        .rt-status(@rt-color-default);
+    }
+
+    &.primary{
+        .rt-status(@rt-color-primary);
+    }
+
+    &.success{
+        .rt-status(@rt-color-default);
+    }
+
+    &.info{
+        .rt-status(@rt-color-info);
+    }
+
+    &.warning{
+        .rt-status(@rt-color-warning);
+    }
+
+    &.danger{
+        .rt-status(@rt-color-danger);
+    }
+
+    &>.title{
+        min-width: 10rem;
+        text-indent: 0.8rem;
+        line-height: 3rem;
+    }
+    &>input, &>textarea, &>select, &.input{
+        text-align: right;
+
+        background-color: transparent;
+        width: 100%;
+        border: none;
+
+        &:focus, &:active{
+            color: #0ea6eb;
+        }
+    }
+    &.align-left{
+        .input{
+            text-align: left;
+        }
+    }
+    &.align-right{
+        .input{
+            text-align: right;
+        }
+    }
+
+    &[data-required=true]{
+        /*
+        &::after{
+            position: absolute;
+            top: -1.4rem;
+            left: -0px;
+            content: "\f069";
+            font-family: FontAwesome;
+            font-size: 1rem;
+            color: #EA2626;
+        }*/
+    }
+
+    textarea{
+        min-height: 12rem;
+    }
+}

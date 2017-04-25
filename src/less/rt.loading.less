@@ -1,0 +1,39 @@
+.rt-self-loading{
+    -webkit-animation: selfLoading 1.5s infinite linear;
+    -moz-animation: selfLoading 1.5s infinite linear;
+    -ms-animation: selfLoading 1.5s infinite linear;
+    animation: selfLoading 1.5s infinite linear;
+}
+
+.rt-hover-self-loading{
+    &:hover{
+        -webkit-animation: selfLoading 1.5s infinite linear;
+        -moz-animation: selfLoading 1.5s infinite linear;
+        -ms-animation: selfLoading 1.5s infinite linear;
+        animation: selfLoading 1.5s infinite linear;
+    }
+}
+
+@-webkit-keyframes selfLoading {
+    0% {-webkit-transform: rotate(0deg);}
+    50% {-webkit-transform: rotate(180deg);background:#2ecc71;}
+    100% {-webkit-transform: rotate(360deg);}
+}
+
+@-moz-keyframes selfLoading {
+    0% {-moz-transform: rotate(0deg);}
+    50% {-moz-transform: rotate(180deg);}
+    100% {-moz-transform: rotate(360deg);}
+}
+
+@-ms-keyframes selfLoading {
+    0% {-ms-transform: rotate(0deg);}
+    50% {-ms-transform: rotate(180deg);}
+    100% {-ms-transform: rotate(360deg);}
+}
+
+@keyframes selfLoading {
+    0% {transform: rotate(0deg);}
+    50% {transform: rotate(180deg);}
+    100% {transform: rotate(360deg);}
+}

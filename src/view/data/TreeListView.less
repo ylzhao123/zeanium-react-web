@@ -1,0 +1,41 @@
+@import "../../less/rt.variables.less";
+
+.rt-tree-list-view{
+    text-align: left !important;
+    .rt-tree-list-view-item{
+        padding: 0.3rem;
+        .item-row-title{
+            opacity: 0.9;
+            line-height: 30px;
+
+            &[data-selected="true"]{
+                font-weight: 600;
+                color: #3498db;
+            }
+
+            &:hover{
+                opacity: 1;
+                color: #0B72A5;
+            }
+
+            .seps {
+                display: inline-block;
+                text-align: right;
+                .icon{
+                    width: 16px;
+                    height: 16px;
+                    text-align: center;
+                }
+            }
+
+            .content{
+                display: inline-block;
+                &>.rt-checkbox{
+                    padding: 0.3rem;
+                    padding-top: 0rem;
+                }
+            }
+
+        }
+    }
+}

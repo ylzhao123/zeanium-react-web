@@ -1,0 +1,41 @@
+.rt-file-uploader{
+    padding: 5px;
+    .icon{
+        width: 64px;
+        height: 64px;
+        line-height: 64px;
+        font-size: 30px;
+        text-align: center;
+        border: 2px dashed #ccc;
+        margin: 5px;
+        padding: 3px;
+    }
+    .file-list{
+        .file{
+            overflow: hidden;
+            position: relative;
+            float: left;
+            margin: 5px;
+            .fa-remove{
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                margin: 5px;
+                &:hover{
+                    color: red;
+                }
+            }
+            img{
+                width: 96px;
+                height: 96px;
+            }
+            a{
+                font-size: 12px;
+                text-decoration: none;
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}

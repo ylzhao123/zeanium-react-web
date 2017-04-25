@@ -1,0 +1,45 @@
+@import "../../less/rt.variables.less";
+@default-color: #121212;
+
+.rt-status(@color: @default-color){
+    &>.mark{
+        color: @color !important;
+        border-color: @color !important;
+    }
+}
+
+.rt-radio-item {
+    float: left;
+    cursor: pointer;
+    color: #434242;
+    &>input{
+        display: none;
+    }
+    .mark{
+        display: inline-block;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        width: 23px;
+        height: 23px;
+        font-size: 14px;
+        margin-right: 3px;
+        text-align: center;
+        .icon{
+            opacity: 0;
+        }
+    }
+
+    .rt-status(@default-color);
+
+    &[data-checked="true"]{
+        .icon{
+            opacity: 1;
+        }
+        .rt-status(@rt-checked-color);
+    }
+
+    &[data-disabled="true"]{
+        .rt-status(@rt-disabled-color);
+    }
+
+}

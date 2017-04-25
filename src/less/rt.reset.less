@@ -1,0 +1,102 @@
+@import "./rt.variables.less";
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var, b, i,
+dl, dt, dd, ol, ul, li, form, label,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    vertical-align: baseline;
+    background: transparent;
+
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select:none;
+}
+
+html {
+    overflow-x: hidden;
+    font-size: 62.5%;
+    font-family: Lato, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimSun, 'Source Sans Pro', sans-serif;
+}
+
+body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    font-size: @rt-base-font-size;
+    color: @rt-base-color;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-rendering: optimizelegibility;
+}
+
+/*
+body, button, input, select, textarea {
+    font: 300 1em/1.8 "PingFang SC","Lantinghei SC","Microsoft Yahei","Hiragino Sans GB","Microsoft Sans Serif","WenQuanYi Micro Hei",sans;
+}*/
+
+*, :after, :before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+ol, ul, li, nav ul{
+    list-style: none;
+}
+
+a {
+    margin:0;
+    padding:0;
+    border:0;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+audio, video {
+    outline: none;
+}
+
+table {
+    max-width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+input, textarea, select, .input {
+    /*vertical-align: middle;*/
+    overflow: hidden;
+    border: 0.1rem solid #c7c7c7;
+    color: #515253;
+    border-radius: 0.3rem;
+    padding: 0.3rem 0.8rem;
+    margin: 0px;
+    box-sizing: border-box;
+    -webkit-transition: all ease-in-out 0.15s;
+    -o-transition: all ease-in-out 0.15s;
+    transition: all ease-in-out 0.15s;
+    resize: none;
+
+    &:focus, &:active {
+        outline: 0 none;
+        outline: thin dotted \9;
+        border-color: rgba(82, 168, 236, 0.8) !important;
+    }
+
+    &[disabled]{
+        color: #CCC !important;
+    }
+}

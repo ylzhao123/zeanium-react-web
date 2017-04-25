@@ -1,0 +1,50 @@
+@import "../../less/rt.variables.less";
+
+@base: #800010;
+
+.rt-loader-color(@color: @rt-color-primary){
+    &>.loader{
+        &[data-loader^='ball'],
+        &[data-loader='circle-clock'],
+        &[data-loader='spinner']{
+            background-color: @color;
+        }
+
+        &{
+            border-left-color: @color !important;
+            border-right-color: @color !important;
+        }
+
+        &::after, &::before{
+            border-top-color: @color !important;
+            background-color: @color;
+            box-shadow: 0 0 10px @color;
+        }
+
+        &[data-loader='arrow-circle']{
+            &::after, &::before{
+                background-color: transparent;
+                box-shadow: none;
+            }
+        }
+    }
+    &>.content{
+        color: @color;
+    }
+}
+
+.rt-data-loader {
+    margin: 10px auto;
+
+    &>.loader{
+        margin: 100px auto 15px;
+    }
+
+    &>.content{
+        text-align: center;
+        font-size: 1.4rem;
+        font-weight: bolder;
+    }
+
+    .rt-loader-color(@base);
+}

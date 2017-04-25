@@ -1,0 +1,28 @@
+@import "../../less/rt.variables.less";
+
+.rt-list-view.rt-list-view-tab{
+    border: 1px solid @rt-base-color;
+    overflow: hidden;
+    display: flex;
+    margin: 3px;
+    border-radius: 3px;
+    &>*{
+        flex-grow: 1;
+    }
+    .rt-list-view-item {
+        text-align: center;
+        padding: 4px;
+        .fa{
+            margin: 3px;
+        }
+        &[data-checked="true"]{
+            background: @rt-base-color;
+            color: #FFF;
+            opacity: 0.8;
+        }
+        &:hover{
+            background: @rt-base-color;
+            color: #FFF;
+        }
+    }
+}

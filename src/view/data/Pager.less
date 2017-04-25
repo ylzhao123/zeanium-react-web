@@ -1,0 +1,50 @@
+@import "../../less/rt.variables.less";
+
+.rt-pager{
+    overflow: hidden;
+    font-size: 14px;
+    .pages {
+        list-style-type: none;
+        display: inline-block;
+        vertical-align: middle;
+        padding: 0;
+        margin: 5px 5px;
+        border-radius: 3px;
+        &>li {
+            display: inline-block;
+            cursor: not-allowed;
+            margin: 0px 3px;
+            &.page{
+                padding: 4px 8px;
+                border-width: 2px;
+                border-style: solid;
+                border-color: #d8d8d8;
+                color: #d8d8d8;
+
+                text-align: center;
+                &:first-child{
+
+                }
+                &.enabled{
+                    border-color: @rt-base-color;
+                    color: @rt-base-color;
+                    cursor: pointer;
+                    &:hover{
+                        opacity: 0.8;
+                    }
+                }
+                &.active{
+                    background-color: @rt-base-color;
+                    color: #FFF;
+                }
+            }
+        }
+    }
+    .count{
+        line-height: 3.5rem;
+        margin: 0px 3px;
+        border: 2px solid @rt-base-color;
+        padding: 4px;
+    }
+
+}
