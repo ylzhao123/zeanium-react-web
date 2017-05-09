@@ -1,14 +1,20 @@
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
-
+var webpack = require('webpack');
+var path = require('path');
 module.exports = {
-    context: __dirname + '/src',
+    context: path.join(__dirname, 'src'),
+    //devtool: 'eval',
     entry: {
-        output: ['./index.js']
+        "index": ['./index.js'],
+        "index.min": ['./index.js']
     },
-    devtool: 'eval',
+    externals: {
+        "react": "React",
+        "react-dom": "ReactDOM"
+    },
     output: {
-        path: __dirname + '/output',
-        filename: '[name].bundle.js'
+        path: path.join(__dirname, 'dist'),
+        filename: '[name].js'
     },
     module: {
         // Disable handling of unknown requires
@@ -45,6 +51,12 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin("[name].bundle.css")
+        new webpack.optimize.UglifyJsPlugin({
+            include: /\.min/,
+            compress: {
+                warnings: false
+            }
+        }),
+        new ExtractTextPlugin("[name].css")
     ]
 };

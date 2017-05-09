@@ -1,3 +1,4 @@
+require('./Layout.less');
 var React = require('react');
 
 var Layout = React.createClass({

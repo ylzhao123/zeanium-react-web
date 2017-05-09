@@ -1,3 +1,4 @@
+require('./RTFlexItem.less');
 var React = require('react');
 var RTItem = require('./RTItem');
 

@@ -17,6 +17,5 @@ var _kv = zn.arrayValueToObject([
 ], function (value, index){
     return require('./'+value+'.js');
 });
-//_kv.EditableTable = require('../data/EditableTable.js');
 _kv.TreeListView = require('../data/TreeListView.js');
 module.exports = _kv;

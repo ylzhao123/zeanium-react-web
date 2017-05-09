@@ -1,3 +1,4 @@
+require('./FilterItem.less');
 var React = require('react');
 var RTFlexItem = require('../basic/RTFlexItem');
 var Dropdown = require('../basic/Dropdown');

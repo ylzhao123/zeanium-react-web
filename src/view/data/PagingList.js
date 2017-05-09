@@ -1,3 +1,4 @@
+require('./PullRefreshList.less');
 var React = require('react');
 var DownPuller = require('../basic/DownPuller.js');
 module.exports = React.createClass({
@@ -157,7 +158,7 @@ module.exports = React.createClass({
 			if(this.state.current<this.state.total){
 				return <div onClick={()=>this.loadingMore()} className="data-footer">点击加载更多 共 ({this.state.current}/{this.state.total}) 页 {this.state.count} 条</div>;
 			}else {
-				return <div className="data-footer">真没数据了!!! 共 ({this.state.current}/{this.state.total}) 页 {this.state.count} 条</div>;
+				return <div className="data-footer">共 ({this.state.current}/{this.state.total}) 页 {this.state.count} 条</div>;
 			}
 		}
 	},

@@ -96,7 +96,7 @@ module.exports = React.createClass({
 		//{this.state.uploading && <i className="cancle fa fa-times" onClick={this.__onUploadCancle} />}
 		return (
 			<form
-				className="rt-uploader"
+				className="c-uploader"
 				target={this._target}
 				encType="multipart/form-data"
 				action={Store.fixURL(this.props.action||'')}

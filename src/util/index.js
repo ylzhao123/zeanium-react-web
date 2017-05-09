@@ -8,6 +8,6 @@ module.exports = zn.arrayValueToObject([
     'RestfulRouter',
     'RouterMapping'
 ], function (value){
-    var _value = window[value] = require('./' + value + '.js');
+    var _value = zn.react[value] = require('./' + value + '.js');
     return _value;
 });

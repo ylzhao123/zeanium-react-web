@@ -1,3 +1,4 @@
+require('./Button.less');
 var React = require('react');
 var RTItem = require('../basic/RTItem');
 

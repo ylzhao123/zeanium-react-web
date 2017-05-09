@@ -1,3 +1,4 @@
+require('./FixedLayout.less');
 var React = require('react');
 var Layout = require('./Layout');
 

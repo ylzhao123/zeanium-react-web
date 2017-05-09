@@ -1,3 +1,4 @@
+require('./FileUploader.less');
 var React = require('react');
 var AjaxUploader = require('./AjaxUploader');
 

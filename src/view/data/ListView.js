@@ -1,4 +1,3 @@
-require('./ListView.less');
 var React = require('react');
 var RTItem = require('../basic/RTItem');
 var RTList = require('../basic/RTList');

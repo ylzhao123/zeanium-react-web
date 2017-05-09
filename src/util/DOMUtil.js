@@ -1,4 +1,5 @@
-var StyleUtil = window.StyleUtil;
+var StyleUtil = require('./StyleUtil');
+
 module.exports = {
     hasClass: function (target, className) {
         return target.classList.contains(className);

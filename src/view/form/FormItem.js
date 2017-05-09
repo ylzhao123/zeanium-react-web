@@ -46,6 +46,9 @@ module.exports = React.createClass({
 	},
 	render: function(){
 		var _input = inputs[this.props.type];
+		if(this.props.type=='EditableTable'){
+			_input = require('../data/EditableTable.js');
+		}
 		return (
 			<RTFlexItem
 				{...this.props}

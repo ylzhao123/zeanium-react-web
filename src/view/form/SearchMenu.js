@@ -1,3 +1,4 @@
+require('./Menu.less');
 var React = require('react');
 var Dropdown = require('../basic/Dropdown');
 var FixedLayout = require('../basic/FixedLayout');

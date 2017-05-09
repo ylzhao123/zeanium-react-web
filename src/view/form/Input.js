@@ -1,3 +1,4 @@
+require('./Input.less');
 var React = require('react');
 var ReactDOM = require('react-dom');
 

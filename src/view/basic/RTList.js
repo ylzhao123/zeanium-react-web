@@ -1,3 +1,4 @@
+require('./RTList.less');
 var React = require('react');
 var RTItem = require('./RTItem.js');
 
@@ -100,12 +101,13 @@ module.exports = React.createClass({
 	},
 	__itemRender: function (item, index){
 		var _content = null, _temp = {};
-		if(typeof item=='string'){
+		if(typeof item !== 'object'){
 			_temp[this.props.textKey] = _temp[this.props.valueKey] = item;
 			this.state.data[index] = item = _temp;
 		}
-
-		item._index = index;
+		if(item&&typeof item == 'object'){
+			item._index = index;
+		}
 
 		var _temp = this.props.onEachItem && this.props.onEachItem(item, this);
 

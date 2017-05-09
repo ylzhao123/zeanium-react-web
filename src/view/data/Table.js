@@ -1,3 +1,4 @@
+require('./Table.less');
 var React = require('react');
 var TableHeader = require('./TableHeader');
 var TableBody = require('./TableBody');
