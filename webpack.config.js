@@ -4,8 +4,7 @@ var path = require('path');
 module.exports = {
     context: path.join(__dirname, 'src'),
     entry: {
-        "index": ['./index.js'],
-        "index.min": ['./index.js']
+        "index": ['./index.js']
     },
     externals: {
         "react": "React",
@@ -51,7 +50,7 @@ module.exports = {
     },
     plugins: [
         new webpack.optimize.UglifyJsPlugin({
-            include: /\.min/,
+            //include: /\.min/,
             compress: {
                 warnings: false
             }

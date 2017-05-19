@@ -103,7 +103,7 @@ module.exports = React.createClass({
 	updateNodeById: function (id, info){
 		this.state.nodes.forEach(function (node, index) {
 			if(node.id === id){
-				Util.extend(node, info);
+				zn.extend(node, info);
 			}
 		});
 

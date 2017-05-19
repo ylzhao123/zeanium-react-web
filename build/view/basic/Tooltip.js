@@ -2,7 +2,6 @@
 
 var React = require('react');
 var ReactDOM = require('react-dom');
-var DOMUtil = window.DOMUtil;
 
 var Tooltip = React.createClass({
 	displayName: 'Tooltip',
@@ -23,7 +22,7 @@ var Tooltip = React.createClass({
 	},
 	fixPosition: function fixPosition(target) {
 		var _popover = ReactDOM.findDOMNode(this);
-		var _t = DOMUtil.getPosition(target),
+		var _t = zn.dom.getPosition(target),
 		    _popoverWidth = this.state.popoverWidth || _t.width,
 		    _popoverHeight = this.state.popoverHeight || _popover.offsetHeight,
 		    _left = null,

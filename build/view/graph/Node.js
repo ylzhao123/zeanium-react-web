@@ -4,7 +4,6 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Link = require('./Link');
 var Draggable = window.Draggable;
-var DOMUtil = window.DOMUtil;
 
 var Node = React.createClass({
 	displayName: 'Node',
@@ -22,7 +21,7 @@ var Node = React.createClass({
 		};
 	},
 	getCenterXY: function getCenterXY() {
-		var _position = DOMUtil.getPosition(this._dom);
+		var _position = zn.dom.getPosition(this._dom);
 		var _halfWidth = _position.width / 2.0,
 		    _halfHeight = _position.height / 2.0,
 		    _x = 0,
@@ -75,7 +74,7 @@ var Node = React.createClass({
 		this._id = this.props.id;
 		this._x = this.props.x || 0;
 		this._y = this.props.y || 0;
-		this._parentPosition = DOMUtil.getPosition(this._dom.parentNode);
+		this._parentPosition = zn.dom.getPosition(this._dom.parentNode);
 		if (this.props.draggable) {
 			Draggable.init(_source, {
 				start: [this.props.x, this.props.y],
@@ -85,8 +84,8 @@ var Node = React.createClass({
 			});
 		}
 
-		DOMUtil.on(_source, 'mouseover', this.__onMouseOver);
-		DOMUtil.on(_source, 'mouseout', this.__onMouseOut);
+		zn.dom.on(_source, 'mouseover', this.__onMouseOver);
+		zn.dom.on(_source, 'mouseout', this.__onMouseOut);
 
 		this.props.onDidMount && this.props.onDidMount(this, this.props);
 	},
@@ -106,14 +105,14 @@ var Node = React.createClass({
 		if (!this._dragTemp) {
 			var _self = this;
 			var _dragTemp = this._dragTemp = document.createElement('div');
-			DOMUtil.setStyles(this._dragTemp, {
+			zn.dom.setStyles(this._dragTemp, {
 				width: 8,
 				height: 8,
 				backgroundColor: 'red'
 			});
 
 			var _start = this.getCenterXY(),
-			    _startMouse = DOMUtil.getPosition(event.target),
+			    _startMouse = zn.dom.getPosition(event.target),
 			    _basePosition = this._parentPosition;
 			var _temp = this.props.canvas.refs.temp;
 			Draggable.init(this._dragTemp, {
@@ -121,7 +120,7 @@ var Node = React.createClass({
 				start: [_startMouse.x, _startMouse.y],
 				onDragStart: function onDragStart(event, data) {},
 				onDrag: function onDrag(event, data) {
-					var _mouse = DOMUtil.getPosition(_dragTemp);
+					var _mouse = zn.dom.getPosition(_dragTemp);
 					_temp.reset(_start, {
 						x: _mouse.x - _basePosition.x,
 						y: _mouse.y - _basePosition.y
