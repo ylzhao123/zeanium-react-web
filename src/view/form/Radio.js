@@ -1,4 +1,3 @@
-require('./Radio.less');
 var React = require('react');
 var RTItem = require('../basic/RTItem');
 var RTList = require('../basic/RTList');
@@ -65,7 +64,9 @@ var Radio = React.createClass({
 		return this.state.value;
 	},
 	setValue: function (value, callback){
-		this.setState({ value: value }, function (){
+		this.setState({
+			value: value
+		}, function (){
 			this.props.onChange && this.props.onChange(value, this);
 			callback && callback(value, this);
 		}.bind(this));

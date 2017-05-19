@@ -1,12 +1,8 @@
 var BASE_PATH = './';
-require(BASE_PATH + 'zn.base.minx.js');
 require(BASE_PATH + 'util/index.js');
-
-zn.react = {};
 
 var VIEW_EXPORTS = [
     'global',
-    'animate',
     'basic',
     'data',
     'form',
@@ -26,4 +22,6 @@ for(var key in VIEW_EXPORTS) {
     }
 }
 
-module.exports = window.UI = window.zrw  = _EXPORTS;
+window.UI = zn.react = _EXPORTS;
+
+module.exports = _EXPORTS;

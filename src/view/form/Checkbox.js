@@ -1,4 +1,3 @@
-require('./Checkbox.less');
 var React = require('react');
 var RTItem = require('../basic/RTItem');
 

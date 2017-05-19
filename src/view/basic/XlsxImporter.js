@@ -1,4 +1,3 @@
-require('./XlsxImporter.less');
 var React = require('react');
 var AjaxUploader = require('../form/AjaxUploader');
 var FormItem = require('../form/FormItem');

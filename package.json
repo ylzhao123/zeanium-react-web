@@ -1,6 +1,6 @@
 {
   "name": "zeanium-react-web",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Web page component(form, table, pager, loading, graph, dataview, animate, layout) for react.js, it support desktop page and mobile page. You can using the same api for different platform, it's easy to develop and deploy your app using the one code on different browser.",
   "main": "index.js",
   "scripts": {
@@ -39,6 +39,6 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
-    "zeanium": "^1.1.4"
+    "zeanium": "^1.1.7"
   }
 }

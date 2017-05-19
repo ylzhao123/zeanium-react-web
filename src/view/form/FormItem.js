@@ -28,11 +28,11 @@ module.exports = React.createClass({
 			return Toast.error('Form item input component is undefined.'), false;
 		}
 		var _value = this.refs.input.getValue();
-		if(this.props.required && !_value){
+		if(this.props.required && (_value == '' || _value == null || _value == undefined)){
 			this.setState({
 				status: 'danger'
 			});
-			return Toast.error(this.props.error || ((this.props.title||'字段')+'是必填项.')), false;
+			return Toast.error(this.props.error || ((this.props.title||'字段')+'是必填项.')), null;
 		}else {
 			this.setState({
 				status: 'success'

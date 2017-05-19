@@ -1,6 +1,5 @@
 'use strict';
 
-require('./Slider.less');
 var React = require('react');
 var ReactDOM = require('react-dom');
 

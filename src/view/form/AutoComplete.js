@@ -1,4 +1,3 @@
-require('./AutoComplete.less');
 var React = require('react');
 var Popover = require('../basic/Popover');
 var ListView = require('../data/ListView');
@@ -36,7 +35,7 @@ var AutoComplete = React.createClass({
 			value: _value,
 			text: _text
 		});
-		
+
 		this.props.onChange && this.props.onChange({
 			text: _text,
 			value: _value,

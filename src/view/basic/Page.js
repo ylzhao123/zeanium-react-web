@@ -1,5 +1,3 @@
-require('./Page.less');
-require('./PageFlex.less');
 var React = require('react');
 var FixedLayout = require('./FixedLayout');
 var ButtonGroup = require('./ButtonGroup');

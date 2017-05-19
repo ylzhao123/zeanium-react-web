@@ -1,58 +1,51 @@
-var RestfulRouter = function (callback){
-    this._controllers = [];
-    this._errors = [];
-    callback && this.init(callback);
-}
-
-RestfulRouter.prototype.init = function (callback){
-    callback.call(null, this);
-    this.__onChange();
-    window.addEventListener('hashchange', this.__onChange.bind(this), false);
-}
-
-RestfulRouter.prototype.__onChange = function (){
-    var _meta = location.hash.split('?'),
-        _path = _meta[0].slice(1),
-        _self = this;
-    var _req = {
-        path: _path,
-        paths: _path.split('/'),
-        notFound: true,
-        params: {},
-        argv: {},
-        init: function (){
-            _req.searchString = _meta[1];
-            _req.search = _req.parseSearch(_req.searchString);
-            _req.name = _req.paths[_req.paths.length-1];
-            _self._controllers.forEach(function (controller, index){
-                if(_req.test(controller.router)){
-                    _req.notFound = false;
-                    _req.params = _req.parseParam(controller.router);
-                    controller.handler.call(controller.context, _req);
-                }
+var Request = zn.Class({
+    properties:{
+        argv: null,
+        params: null,
+        path: null,
+        paths: null,
+        searchString: null,
+        search: null,
+        name: null,
+        notFound: null
+    },
+    methods: {
+        init: function (argv){
+            this.sets(argv);
+        },
+        reset: function (){
+            var _meta = location.hash.split('?'),
+                _path = _meta[0].slice(1),
+                _paths = _path.split('/');
+            this.sets({
+                notFound: true,
+                argv: {},
+                params: {},
+                path: _path,
+                paths: _paths,
+                searchString: _meta[1],
+                search: this.parseSearch(_meta[1]),
+                name: _paths[_paths.length-1]
             });
-            if(_req.notFound){
-                _self._errors.forEach(function (controller, index){
-                    controller.handler.call(controller.context, _req);
-                });
-            }
         },
         get: function (value){
-            return value ? _req.argv[value] : _req.argv;
+            return value ? this._argv[value] : this._argv;
         },
         jump: function (path, search){
             return Session.jump(path, search), this;
         },
         parseParam: function (router){
             var _data = {},
+                _paths = this._paths,
+                _argv = this._argv,
                 _key = null,
                 _value = null;
             router.split('/').forEach(function (temp, index){
                 if (/^:\w[\w\d]*$/.test(temp)) {
                     _key = temp.replace(/^:/, '');
-                    _value = _req.paths[index];
+                    _value = _paths[index];
                     _data[_key] = _value;
-                    _req.argv[_key] = _value;
+                    _argv[_key] = _value;
                 }
             });
 
@@ -72,8 +65,8 @@ RestfulRouter.prototype.__onChange = function (){
                 _key = _temp[0];
                 _value = _temp[1];
                 _data[_key] = _value;
-                _req.argv[_key] = _value;
-            });
+                this._argv[_key] = _value;
+            }.bind(this));
 
             return _data;
         },
@@ -90,36 +83,64 @@ RestfulRouter.prototype.__onChange = function (){
                 _reg = '^#' + _reg + '$';
             }
 
-            var __reg = Boolean(new RegExp(_reg).test('#' + _req.path));
-            var __index = Boolean(_req.path == '' && router == '/');
+            var __reg = Boolean(new RegExp(_reg).test('#' + this._path));
+            var __index = Boolean(this._path == '' && router == '/');
             return Boolean(__all || __reg || __index);
         }
     }
+});
 
-    _req.init();
-}
 
-RestfulRouter.prototype.get = function (router, handler, context){
-    return this._controllers.push({
-        router: router,
-        handler: handler,
-        context: context
-    }), this;
-}
+module.exports = zn.Class({
+    events: ['change'],
+    methods: {
+        init: function (){
+            this._controllers = [];
+            this._errors = [];
+            this._request = new Request();
+            window.addEventListener('hashchange', this.__onHashChange.bind(this), false);
+        },
+        fireHashChange: function (){
+            this.__onHashChange();
+        },
+        __onHashChange: function (){
+            var _req = this._request,
+                _self = this;
+            _req.reset();
+            this._controllers.forEach(function (controller, index){
+                if(_req.test(controller.router)){
+                    _req.sets({
+                        notFound: false,
+                        params: _req.parseParam(controller.router)
+                    });
+                    controller.handler.call(controller.context, _req);
+                }
+            });
+            _req._notFound && this._errors.forEach(function (controller, index){
+                controller.handler.call(controller.context, _req);
+            });
 
-RestfulRouter.prototype.use = function (handler, context){
-    return this._controllers.push({
-        router: '*',
-        handler: handler,
-        context: context
-    }), this;
-}
-
-RestfulRouter.prototype.error = function (handler, context){
-    return this._errors.push({
-        handler: handler,
-        context: context
-    }), this;
-}
-
-module.exports = RestfulRouter;
+            this.fire('change', _req);
+        },
+        error: function (handler, context){
+            return this._errors.push({
+                handler: handler,
+                context: context
+            }), this;
+        },
+        use: function (handler, context){
+            return this._controllers.push({
+                router: '*',
+                handler: handler,
+                context: context
+            }), this;
+        },
+        get: function (router, handler, context){
+            return this._controllers.push({
+                router: router,
+                handler: handler,
+                context: context
+            }), this;
+        }
+    }
+});

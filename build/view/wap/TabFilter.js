@@ -1,6 +1,5 @@
 'use strict';
 
-require('./TabFilter.less');
 var React = require('react');
 var Dropdown = require('../basic/Dropdown');
 var ListView = require('../data/ListView.js');

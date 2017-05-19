@@ -1,4 +1,3 @@
-require('./AjaxUploader.less');
 var React = require('react');
 var ReactDOM = require('react-dom');
 

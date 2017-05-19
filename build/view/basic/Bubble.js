@@ -1,6 +1,5 @@
 'use strict';
 
-require('./Bubble.less');
 var React = require('react');
 
 var Bubble = React.createClass({

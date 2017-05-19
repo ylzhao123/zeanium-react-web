@@ -1,4 +1,3 @@
-require('./Modal.less');
 var React = require('react');
 
 var Modal = React.createClass({

@@ -3,7 +3,6 @@ var webpack = require('webpack');
 var path = require('path');
 module.exports = {
     context: path.join(__dirname, 'src'),
-    //devtool: 'eval',
     entry: {
         "index": ['./index.js'],
         "index.min": ['./index.js']

@@ -1,6 +1,5 @@
 'use strict';
 
-require('./Panel.less');
 var React = require('react');
 
 var Panel = React.createClass({

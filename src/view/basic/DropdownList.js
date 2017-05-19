@@ -1,4 +1,3 @@
-require('./DropdownList.less');
 var React = require('react');
 var Dropdown = require('./Dropdown');
 var ListView = require('../data/ListView');

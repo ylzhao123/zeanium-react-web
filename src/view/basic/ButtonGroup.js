@@ -1,4 +1,3 @@
-require('./ButtonGroup.less');
 var React = require('react');
 var Button = require('./Button');
 var RTList = require('./RTList');

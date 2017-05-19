@@ -104,7 +104,7 @@ module.exports = React.createClass({
 					_item = this._items[key];
 					_value = value[key];
 					_text = value[key + '_convert'];
-					if (_item && _value != undefined) {
+					if (_item && _value !== undefined) {
 						_item.refs.input.setValue(_value, _text);
 					}
 				}
@@ -125,8 +125,8 @@ module.exports = React.createClass({
 				continue;
 			}
 			_value = this._items[name].validate();
-			if (_value !== false) {
-				_data[name] = _value || '';
+			if (_value !== null && _value !== undefined) {
+				_data[name] = _value;
 			} else {
 				return false;
 			}
