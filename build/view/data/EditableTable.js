@@ -1,5 +1,3 @@
-'use strict';
-
 var React = require('react');
 var Table = require('./Table');
 var Icon = require('../basic/Icon');

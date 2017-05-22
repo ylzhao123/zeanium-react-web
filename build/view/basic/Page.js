@@ -1,5 +1,3 @@
-'use strict';
-
 var React = require('react');
 var FixedLayout = require('./FixedLayout');
 var ButtonGroup = require('./ButtonGroup');

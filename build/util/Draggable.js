@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = zn.Class({
     statics: {
         create: function create(target, argv) {

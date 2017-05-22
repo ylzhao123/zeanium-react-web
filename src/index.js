@@ -1,4 +1,22 @@
 var BASE_PATH = './';
+zn.react = {
+    extendPath: function (path, views){
+        var _views = {};
+        for(var key in views){
+            _views[path+key] = views[key];
+        }
+
+        return _views;
+    },
+    loadPaths: function (paths, handler){
+        var _data = {},
+            _value = null;
+        for(var i = 0, _len = paths.length; i < _len; i++){
+            _value = handler(paths[i]);
+        }
+    }
+};
+require(BASE_PATH + 'Application.js');
 require(BASE_PATH + 'util/index.js');
 
 var VIEW_EXPORTS = [
@@ -9,19 +27,11 @@ var VIEW_EXPORTS = [
     'graph',
     'loader',
     'wap'
-], _EXPORTS = {};
+], _path = null;
 
-var _temp = null,
-    _path = null;
 for(var key in VIEW_EXPORTS) {
     _path = BASE_PATH + 'view/' + VIEW_EXPORTS[key] + '/index.js';
-    _temp = require(_path);
-    _EXPORTS[key] =_temp;
-    for(var _tkey in _temp){
-        _EXPORTS[_tkey] = _temp[_tkey];
-    }
+    zn.overwrite(zn.react, require(_path));
 }
 
-window.UI = zn.react = _EXPORTS;
-
-module.exports = _EXPORTS;
+module.exports = window.UI = zn.react;

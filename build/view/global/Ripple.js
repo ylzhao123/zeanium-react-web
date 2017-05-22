@@ -1,4 +1,3 @@
-'use strict';
 
 var addRippleEffect = function addRippleEffect(event) {
     var _target = event.target;

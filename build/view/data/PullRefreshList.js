@@ -1,5 +1,3 @@
-'use strict';
-
 var React = require('react');
 var DownPuller = require('../basic/DownPuller.js');
 module.exports = React.createClass({

@@ -1,5 +1,3 @@
-'use strict';
-
 var Request = zn.Class({
     properties: {
         argv: null,
