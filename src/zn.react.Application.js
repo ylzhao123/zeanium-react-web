@@ -49,7 +49,7 @@ module.exports = zn.react.Application = zn.Class({
                     plugin = _self.onLoading(plugin);
                 }
                 zn.extend(_topRouters, plugin.tools);
-                zn.extend(_subRouters, plugin.router);
+                zn.extend(_subRouters, plugin.routers);
             });
 
             zn.overwrite(this._routers, _topRouters);
