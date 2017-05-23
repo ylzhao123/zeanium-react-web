@@ -1,30 +1,9 @@
-var BASE_PATH = './';
-zn.react = {
-    extendPath: function extendPath(path, views) {
-        var _views = {};
-        for (var key in views) {
-            _views[path + key] = views[key];
-        }
+require('./zn.react.js');
+require('./zn.react.Application.js');
+require('./util/index.js');
 
-        return _views;
-    },
-    loadPaths: function loadPaths(paths, handler) {
-        var _data = {},
-            _value = null;
-        for (var i = 0, _len = paths.length; i < _len; i++) {
-            _value = handler(paths[i]);
-        }
-    }
-};
-require(BASE_PATH + 'Application.js');
-require(BASE_PATH + 'util/index.js');
-
-var VIEW_EXPORTS = ['global', 'basic', 'data', 'form', 'graph', 'loader', 'wap'],
-    _path = null;
-
-for (var key in VIEW_EXPORTS) {
-    _path = BASE_PATH + 'view/' + VIEW_EXPORTS[key] + '/index.js';
-    zn.overwrite(zn.react, require(_path));
-}
+['global', 'basic', 'data', 'form', 'graph', 'loader', 'wap'].forEach(function (path, index) {
+    zn.overwrite(zn.react, require('./view/' + path));
+});
 
 module.exports = window.UI = zn.react;
