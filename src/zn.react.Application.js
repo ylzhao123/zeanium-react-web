@@ -32,8 +32,10 @@ module.exports = zn.react.Application = zn.Class({
         init: function (argv){
             this.sets(argv);
             this.__initArgv(argv);
-            this.update();
-            this.onInit && this.onInit.call(this, this);
+            var _value = this.onInit && this.onInit.call(this, this.gets());
+            if(_value!==false){
+                this.update(_value);
+            }
         },
         __initArgv: function (argv){
             var _topRouters = {},
