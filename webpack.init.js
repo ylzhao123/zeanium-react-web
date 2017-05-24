@@ -68,7 +68,7 @@ function initConfig(base) {
             _config.context = base;
             _config.entry = {};
             _dir.forEach(function (name){
-                _config.entry[name] = ['./_entry.js'];
+                _config.entry[name] = ['./' + name + '_entry.js'];
             });
         }
         _config.output = {
