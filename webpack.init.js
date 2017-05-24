@@ -75,6 +75,7 @@ function initConfig(base) {
             path: path.resolve(base, '../www', 'dist'),
             filename: '[name].bundle.js'
         };
+        _config.plugins[0] = new ExtractTextPlugin("[name].bundle.css");
     }
 
     return _config;
