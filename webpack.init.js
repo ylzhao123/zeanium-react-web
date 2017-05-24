@@ -2,7 +2,8 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var webpack = require('webpack');
 var fs = require('fs');
 var path = require('path');
-var argv = process.argv,
+var dirname = process.cwd(),
+    argv = process.argv,
     appIndex = argv.indexOf('--app'),
     app = (appIndex !== -1) ? argv[appIndex+1] : '',
     pageIndex = argv.indexOf('--page'),
@@ -10,22 +11,22 @@ var argv = process.argv,
     uglifyIndex = argv.indexOf('--uglify');
 
 function initAppBasePath (){
-    var _isApp = fs.existsSync(path.resolve(__dirname, 'zn.app.config.js')),
+    var _isApp = fs.existsSync(path.resolve(dirname, 'zn.app.config.js')),
         _base = null;
     if(_isApp){
-        _base = path.resolve(__dirname, 'web', 'src');
+        _base = path.resolve(dirname, 'web', 'src');
     }else {
-        if(!fs.existsSync(path.resolve(__dirname, 'zn.server.config.js'))){
+        if(!fs.existsSync(path.resolve(dirname, 'zn.server.config.js'))){
             return null;
         }
-        var _dir = fs.readdirSync(path.resolve(__dirname, 'znapps'));
+        var _dir = fs.readdirSync(path.resolve(dirname, 'znapps'));
         if(!_dir.length){
             return null;
         }
         if(_dir.indexOf(app)!=-1){
-            _base = path.resolve(__dirname, 'znapps', app, 'web', 'src');
+            _base = path.resolve(dirname, 'znapps', app, 'web', 'src');
         }else {
-            _base = path.resolve(__dirname, 'znapps', _dir[0], 'web', 'src');
+            _base = path.resolve(dirname, 'znapps', _dir[0], 'web', 'src');
         }
     }
 
@@ -44,12 +45,12 @@ function initConfig(base) {
         }));
     }
     var _config = {
-        context: path.join(__dirname, 'src'),
+        context: path.join(dirname, 'src'),
         entry: {
             "index": ['./index.js']
         },
         output: {
-            path: path.join(__dirname, 'dist'),
+            path: path.join(dirname, 'dist'),
             filename: '[name].js'
         },
         plugins: _plugins
