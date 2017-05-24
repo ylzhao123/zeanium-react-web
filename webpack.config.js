@@ -1,18 +1,21 @@
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var webpack = require('webpack');
 var path = require('path');
-module.exports = {
+var zn = require('zeanium-node');
+var config = require('./webpack.init.js');
+
+module.exports = zn.extend({
     context: path.join(__dirname, 'src'),
     entry: {
         "index": ['./index.js']
     },
-    externals: {
-        "react": "React",
-        "react-dom": "ReactDOM"
-    },
     output: {
         path: path.join(__dirname, 'dist'),
         filename: '[name].js'
+    },
+    externals: {
+        "react": "React",
+        "react-dom": "ReactDOM"
     },
     module: {
         // Disable handling of unknown requires
@@ -28,7 +31,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.js[x]?$/,
-                exclude: /(node_modules|bower_components)/,
+                exclude: /(node_modules)/,
                 loader: 'babel',
                 query: {
                     presets: ['es2015','react'],
@@ -59,4 +62,4 @@ module.exports = {
         }),
         new ExtractTextPlugin("[name].css")
     ]
-};
+}, config);
