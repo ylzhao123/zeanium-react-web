@@ -62,8 +62,11 @@ module.exports = zn.react.Application = zn.Class({
         onLoading: function (value){
             return value;
         },
+        __getRenderView: function (){
+            return this.render && this.render.call(this, this.gets());
+        },
         update: function (view){
-            var _view = view || this.render() || <UI.URLRouter home={this.get('home')} routers={this._routers} />,
+            var _view = view || this.__getRenderView() || <UI.URLRouter home={this.get('home')} routers={this._routers} />,
                 _container = this.get('container');
             _container = zn.type(_container)=='string'?document.getElementById(_container):_container;
             require('react-dom').render(_view, _container);
