@@ -145,6 +145,9 @@ module.exports = React.createClass({
 		for (var key in this.state.hiddens) {
 			_result[key] = _result[key] || this.state.hiddens[key];
 		}
+		if (zn.DEBUG) {
+			zn.debug("FormData", _result);
+		}
 		var _temp = this.props.onSubmitBefore && this.props.onSubmitBefore(_result, this);
 		if (_temp !== false) {
 			_result = _temp || _result;
@@ -155,7 +158,6 @@ module.exports = React.createClass({
 		if (this.props.sync) {
 			ReactDOM.findDOMNode(this).submit();
 		} else {
-			//console.log('FormData: ', _result);
 			if (this.props.merge) {
 				var _temp = {};
 				_temp[this.props.merge] = _result;
@@ -191,7 +193,7 @@ module.exports = React.createClass({
 			return React.createElement(
 				'form',
 				{
-					className: "rt-form " + this.props.className,
+					className: zn.react.classname('rt-form', this.props.className),
 					encType: 'multipart/form-data',
 					method: 'POST',
 					style: this.props.style },
@@ -204,7 +206,7 @@ module.exports = React.createClass({
 		} else {
 			return React.createElement(
 				'div',
-				{ className: "rt-form " + this.props.className, style: this.props.style },
+				{ className: zn.react.classname('rt-form', this.props.className), style: this.props.style },
 				React.createElement(RTList, _extends({}, this.props, { className: 'rt-form-items', style: null, itemRender: this.__itemRender })),
 				React.createElement(ButtonGroup, _extends({}, _btns, { className: 'rt-form-btns', onClick: this.__onBtnsClick }))
 			);

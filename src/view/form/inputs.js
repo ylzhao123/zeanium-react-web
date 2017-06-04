@@ -8,9 +8,11 @@ var _kv = zn.arrayValueToObject([
     'Select',
     'FileUploader',
     'ImageUploader',
+    'InputPopup',
     'Menu',
     'TreeMenu',
     'SearchMenu',
+    'Label',
     'Textarea',
     'Timer',
     'ToggleSwitch'

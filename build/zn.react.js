@@ -1,4 +1,21 @@
 module.exports = zn.react = {
+    classname: function classname() {
+        var _items = [];
+        zn.each(Array.prototype.slice.call(arguments), function (item, index) {
+            if (item) {
+                switch (zn.type(item)) {
+                    case 'string':
+                        _items.push(item);
+                        break;
+                    case 'function':
+                        _items.push(item.call(null) || '');
+                        break;
+                }
+            }
+        });
+
+        return _items.join(' ');
+    },
     extendPath: function extendPath(path, views) {
         var _views = {};
         for (var key in views) {

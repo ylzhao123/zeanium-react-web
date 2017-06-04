@@ -21,6 +21,7 @@ module.exports = zn.arrayValueToObject([
     'PullRefresh',
     'Scrollable',
     'Slider',
+    'Search',
     'Uploader',
     'URLRouter',
     'XlsxImporter'

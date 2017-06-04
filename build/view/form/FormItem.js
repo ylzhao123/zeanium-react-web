@@ -47,14 +47,22 @@ module.exports = React.createClass({
 		this.props.onChange && this.props.onChange(value, rtlist, this);
 	},
 	render: function render() {
-		var _input = inputs[this.props.type];
-		if (this.props.type == 'EditableTable') {
-			_input = require('../data/EditableTable.js');
+		var _input = null,
+		    _type = this.props.type;
+		if (zn.is(_type, 'string')) {
+			if (_type == 'EditableTable') {
+				_input = require('../data/EditableTable.js');
+			} else {
+				_input = inputs[_type];
+			}
+		} else {
+			_input = _type;
 		}
+
 		return React.createElement(
 			RTFlexItem,
 			_extends({}, this.props, {
-				className: 'rt-form-item ' + this.props.className + ' ' + this.state.status }),
+				className: zn.react.classname('rt-form-item', this.props.className, this.state.status, this.props.required ? 'required' : '') }),
 			this.props.icon && React.createElement(
 				'div',
 				{ className: 'icon' },

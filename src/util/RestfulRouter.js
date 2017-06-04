@@ -24,8 +24,10 @@ var Request = zn.Class({
                 path: _path,
                 paths: _paths,
                 searchString: _meta[1],
-                search: this.parseSearch(_meta[1]),
                 name: _paths[_paths.length-1]
+            });
+            this.sets({
+                search: this.parseSearch(_meta[1]),
             });
         },
         get: function (value){

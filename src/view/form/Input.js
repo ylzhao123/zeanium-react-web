@@ -33,7 +33,7 @@ module.exports = React.createClass({
 	},
 	render: function(){
 		return (
-			<input className={"rt-input " + this.props.className}
+			<input className={zn.react.classname('rt-input', this.props.className)}
 				required={this.props.required}
 				style={this.props.style}
 				{...this.props.attrs}

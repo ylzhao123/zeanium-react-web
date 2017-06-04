@@ -1,12 +1,12 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Link = require('./Link');
-var Draggable = window.Draggable;
 
 var Node = React.createClass({
 	displayName: 'Node',
 	getDefaultProps: function getDefaultProps() {
 		return {
+			type: 'type-node',
 			draggable: true,
 			editable: true
 		};
@@ -17,6 +17,28 @@ var Node = React.createClass({
 		return {
 			highLight: false
 		};
+	},
+	componentDidMount: function componentDidMount() {
+		var _source = this._dom,
+		    _self = this;
+
+		this._id = this.props.id || zn.uuid();
+		this._x = this.props.x || 0;
+		this._y = this.props.y || 0;
+		this._parentPosition = zn.dom.getPosition(this._dom.parentNode);
+		if (this.props.draggable) {
+			zn.react.Draggable.create(_source, {
+				start: [this.props.x, this.props.y],
+				onDragStart: this.__onNodeDragStart,
+				onDrag: this.__onNodeDrag,
+				onDragEnd: this.__onNodeDragEnd
+			});
+		}
+
+		zn.dom.on(_source, 'mouseover', this.__onMouseOver);
+		zn.dom.on(_source, 'mouseout', this.__onMouseOut);
+
+		this.props.onDidMount && this.props.onDidMount(this, this.props);
 	},
 	getCenterXY: function getCenterXY() {
 		var _position = zn.dom.getPosition(this._dom);
@@ -65,28 +87,6 @@ var Node = React.createClass({
 			React.render(_node, this._dom);
 		}
 	},
-	componentDidMount: function componentDidMount() {
-		var _source = this._dom,
-		    _self = this;
-
-		this._id = this.props.id;
-		this._x = this.props.x || 0;
-		this._y = this.props.y || 0;
-		this._parentPosition = zn.dom.getPosition(this._dom.parentNode);
-		if (this.props.draggable) {
-			Draggable.init(_source, {
-				start: [this.props.x, this.props.y],
-				onDragStart: this.__onNodeDragStart,
-				onDrag: this.__onNodeDrag,
-				onDragEnd: this.__onNodeDragEnd
-			});
-		}
-
-		zn.dom.on(_source, 'mouseover', this.__onMouseOver);
-		zn.dom.on(_source, 'mouseout', this.__onMouseOut);
-
-		this.props.onDidMount && this.props.onDidMount(this, this.props);
-	},
 	__onNodeDragStart: function __onNodeDragStart(event, data) {
 		var _dom = this._dom;
 		this._oldZIndex = _dom.style.zIndex;
@@ -106,14 +106,15 @@ var Node = React.createClass({
 			zn.dom.setStyles(this._dragTemp, {
 				width: 8,
 				height: 8,
-				backgroundColor: 'red'
+				borderRadius: 5,
+				backgroundColor: '#800010'
 			});
 
 			var _start = this.getCenterXY(),
 			    _startMouse = zn.dom.getPosition(event.target),
 			    _basePosition = this._parentPosition;
 			var _temp = this.props.canvas.refs.temp;
-			Draggable.init(this._dragTemp, {
+			zn.react.Draggable.create(this._dragTemp, {
 				event: event,
 				start: [_startMouse.x, _startMouse.y],
 				onDragStart: function onDragStart(event, data) {},
@@ -129,6 +130,8 @@ var Node = React.createClass({
 					var _uuid = _self.findNode.call(_self, document.elementFromPoint(data.mouseX, data.mouseY));
 					if (_uuid) {
 						_self.props.canvas.addLink(_self._id, _uuid);
+					} else {
+						_self.props.onNodeEditDragEnd && _self.props.onNodeEditDragEnd(_self, data);
 					}
 				}
 			});
@@ -143,13 +146,13 @@ var Node = React.createClass({
 		if (!_className) {
 			return this.findNode(dom.parentNode);
 		}
-		if (_className == 'c-flow-canvas') {
+		if (_className == 'rt-flow-canvas') {
 			return;
 		}
 		if (!_className.indexOf) {
 			return;
 		}
-		if (_className.indexOf('graph-node') !== -1) {
+		if (_className.indexOf('rt-graph-node') !== -1) {
 			return dom.getAttribute('data-id');
 		} else {
 			return this.findNode(dom.parentNode);
@@ -222,6 +225,9 @@ var Node = React.createClass({
 			return React.createElement('i', { className: 'manual-connect', onMouseUp: this.__onConnectMouseUp });
 		}
 	},
+	getId: function getId() {
+		return this._id;
+	},
 	render: function render() {
 		var _this = this;
 
@@ -229,7 +235,7 @@ var Node = React.createClass({
 			'div',
 			{ ref: function ref(_ref) {
 					return _this._dom = _ref;
-				}, className: "graph-node " + (this.props.type || 'type-node'), 'data-id': this.props.id, 'data-highlight': this.state.highLight, 'data-selected': this.props.selected, style: this.props.style },
+				}, className: zn.react.classname('rt-graph-node', this.props.type), 'data-id': this.getId(), 'data-highlight': this.state.highLight, 'data-selected': this.props.selected, style: this.props.style },
 			this.props.render && this.props.render(this, this.props),
 			this.__editableRender()
 		);

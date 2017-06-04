@@ -1,3 +1,3 @@
-module.exports = zn.arrayValueToObject(['TabFilter'], function (value) {
+module.exports = zn.arrayValueToObject(['TabBar', 'TabFilter'], function (value) {
     return require('./' + value + '.js');
 });

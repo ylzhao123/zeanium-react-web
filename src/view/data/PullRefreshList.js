@@ -85,15 +85,19 @@ module.exports = React.createClass({
 		if(this.props.dataHandler){
 			return this.props.dataHandler(data);
 		}
-		var _count = data.result[1][0].count;
-		if(this.isMounted()){
-			this.setState({
-				count: _count,
-				total: Math.ceil( _count / this.props.pageSize)
-			});
-		}
+		if(data.result && data.result[1] && data.result[1][0]){
+			var _count = data.result[1][0].count;
+			if(this.isMounted()){
+				this.setState({
+					count: _count,
+					total: Math.ceil( _count / this.props.pageSize)
+				});
+			}
 
-		return data.result[0];
+			return data.result[0];
+		}else {
+			return [];
+		}
 	},
 	__onItemRender: function (item, index){
 		var _view = this.props.itemRender && this.props.itemRender(item, index);

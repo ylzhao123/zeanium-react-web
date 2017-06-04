@@ -34,7 +34,7 @@ module.exports = React.createClass({
 		this.props.onKeyUp && this.props.onKeyUp(event, this);
 	},
 	render: function render() {
-		return React.createElement('input', _extends({ className: "rt-input " + this.props.className,
+		return React.createElement('input', _extends({ className: zn.react.classname('rt-input', this.props.className),
 			required: this.props.required,
 			style: this.props.style
 		}, this.props.attrs, {

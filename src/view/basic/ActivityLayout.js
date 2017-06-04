@@ -16,9 +16,6 @@ module.exports = React.createClass({
 			unit: 'px'
 		};
 	},
-	componentDidMount: function(){
-
-	},
 	getInitialState: function (){
 		return {
 

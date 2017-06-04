@@ -85,50 +85,50 @@ module.exports = zn.Class({
             }
 
             return false;
+        },
+        __mousemove: function __mousemove(event) {
+            var _event = event || window.event,
+                _px = _event.clientX || _event.x,
+                _py = _event.clientY || _event.y,
+                _argv = this._argv;
+
+            //event.stopPropagation();
+            //event.preventDefault();
+            var _dx = _px - _argv.mouseX,
+                _dy = _py - _argv.mouseY;
+
+            _argv.DX.toLowerCase() == 'right' && (_dx *= -1);
+            _argv.DY.toLowerCase() == 'bottom' && (_dy *= -1);
+
+            var _currX = _argv.currX + _dx,
+                _currY = _argv.currY + _dy;
+
+            _currX < _argv.minX && (_currX = _argv.minX);
+            _argv.maxX && _currX > _argv.maxX && (_currX = _argv.maxX);
+            _currY < _argv.minY && (_currY = _argv.minY);
+            _argv.maxY && _currY > _argv.maxY && (_currY = _argv.maxY);
+
+            if (_currX !== _argv.currX) {
+                _argv.mouseX = _px;
+                _argv.currX = _currX;
+                _argv.source.style[_argv.DX] = _currX + 'px';
+            }
+
+            if (_currY !== _argv.currY) {
+                _argv.mouseY = _py;
+                _argv.currY = _currY;
+                _argv.source.style[_argv.DY] = _currY + 'px';
+            }
+
+            _argv.onDrag && _argv.onDrag(event, _argv);
+            return false;
+        },
+        __mouseup: function __mouseup(event) {
+            event.stopPropagation();
+            event.preventDefault();
+            this._argv.onDragEnd && this._argv.onDragEnd(event, this._argv);
+            document.onmousemove = null;
+            document.onmouseup = null;
         }
-    },
-    __mousemove: function __mousemove(event) {
-        var _event = event || window.event,
-            _px = _event.clientX || _event.x,
-            _py = _event.clientY || _event.y,
-            _argv = this._argv;
-
-        //event.stopPropagation();
-        //event.preventDefault();
-        var _dx = _px - _argv.mouseX,
-            _dy = _py - _argv.mouseY;
-
-        _argv.DX.toLowerCase() == 'right' && (_dx *= -1);
-        _argv.DY.toLowerCase() == 'bottom' && (_dy *= -1);
-
-        var _currX = _argv.currX + _dx,
-            _currY = _argv.currY + _dy;
-
-        _currX < _argv.minX && (_currX = _argv.minX);
-        _argv.maxX && _currX > _argv.maxX && (_currX = _argv.maxX);
-        _currY < _argv.minY && (_currY = _argv.minY);
-        _argv.maxY && _currY > _argv.maxY && (_currY = _argv.maxY);
-
-        if (_currX !== _argv.currX) {
-            _argv.mouseX = _px;
-            _argv.currX = _currX;
-            _argv.source.style[_argv.DX] = _currX + 'px';
-        }
-
-        if (_currY !== _argv.currY) {
-            _argv.mouseY = _py;
-            _argv.currY = _currY;
-            _argv.source.style[_argv.DY] = _currY + 'px';
-        }
-
-        _argv.onDrag && _argv.onDrag(event, _argv);
-        return false;
-    },
-    __mouseup: function __mouseup(event) {
-        event.stopPropagation();
-        event.preventDefault();
-        this._argv.onDragEnd && this._argv.onDragEnd(event, this._argv);
-        document.onmousemove = null;
-        document.onmouseup = null;
     }
 });

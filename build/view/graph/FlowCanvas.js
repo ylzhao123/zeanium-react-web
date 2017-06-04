@@ -7,23 +7,21 @@ var Link = require('./Link');
 
 module.exports = React.createClass({
 	displayName: 'FlowCanvas',
-	getDefaultProps: function getDefaultProps() {
-		return {
-			data: {
-				nodes: [],
-				links: []
-			}
-		};
-	},
 	getInitialState: function getInitialState() {
 		return {
-			nodes: this.props.data.nodes || [],
-			links: this.props.data.links || []
+			nodes: [],
+			links: []
 		};
 	},
 	componentDidMount: function componentDidMount() {
 		this._dom = ReactDOM.findDOMNode(this);
+		this.setData(this.props.data);
 		this.__initDragDrop(this._dom);
+	},
+	componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
+		if (prevProps.data != this.props.data) {
+			this.setData(this.props.data);
+		}
 	},
 	__initDragDrop: function __initDragDrop(target) {
 		target.ondragover = function (event) {
@@ -45,7 +43,7 @@ module.exports = React.createClass({
 		}.bind(this);
 	},
 	__onNodeDidMount: function __onNodeDidMount(node, nodeProps, nodeState) {
-		this._nodes[nodeProps.id] = node;
+		this._nodes[node.getId()] = node;
 	},
 	__onNodeDrag: function __onNodeDrag() {},
 	__onNodeDragEnd: function __onNodeDragEnd(event, data, node) {
@@ -60,13 +58,26 @@ module.exports = React.createClass({
 		link.setTarget(_target);
 		link.setSource(_source);
 		link.reset();
-		this._links[link._id] = link;
+		this._links[link.getId()] = link;
 	},
 	getData: function getData() {
 		return this.state;
 	},
 	setData: function setData(data) {
-		this.setState({ nodes: data.nodes, links: data.links });
+		if (data) {
+			var _obj = {};
+			if (data.nodes) {
+				_obj.nodes = data.nodes;
+			}
+			if (data.links) {
+				_obj.links = data.links;
+			}
+			if (Object.keys(_obj).length) {
+				this.setState(_obj);
+			}
+		}
+
+		return this;
 	},
 	addLink: function addLink(target, source) {
 		this.state.links.push({ target: target, source: source });
@@ -133,10 +144,11 @@ module.exports = React.createClass({
 		this._links = {};
 		return React.createElement(
 			'div',
-			{ className: 'c-flow-canvas' },
+			{ className: 'rt-flow-canvas' },
 			(this.state.nodes || []).map(function (node, index) {
 				var _this = this;
 
+				node.id = node.id || zn.uuid();
 				return React.createElement(Node, _extends({ key: zn.uuid(),
 					index: index,
 					selected: this.state.selectNode === node ? true : false,
@@ -145,6 +157,7 @@ module.exports = React.createClass({
 					editable: this.props.editable || node.editable,
 					draggable: this.props.draggable || node.draggable,
 					render: this.props.nodeRender,
+					onNodeEditDragEnd: this.props.onNodeEditDragEnd,
 					onDidMount: this.__onNodeDidMount,
 					onNodeDrag: this.__onNodeDrag,
 					onNodeDragEnd: this.__onNodeDragEnd,

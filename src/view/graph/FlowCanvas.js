@@ -5,23 +5,21 @@ var Link = require('./Link');
 
 module.exports = React.createClass({
 	displayName:'FlowCanvas',
-	getDefaultProps: function (){
-		return {
-			data: {
-				nodes: [],
-				links: []
-			}
-		};
-	},
 	getInitialState:function(){
 		return {
-			nodes: this.props.data.nodes||[],
-			links: this.props.data.links||[]
+			nodes: [],
+			links: []
 		}
 	},
 	componentDidMount:function(){
 		this._dom = ReactDOM.findDOMNode(this);
+		this.setData(this.props.data);
 		this.__initDragDrop(this._dom);
+	},
+	componentDidUpdate: function (prevProps, prevState){
+		if(prevProps.data!=this.props.data){
+			this.setData(this.props.data);
+		}
 	},
 	__initDragDrop: function (target){
         target.ondragover = function(event) {
@@ -43,7 +41,7 @@ module.exports = React.createClass({
         }.bind(this);
 	},
 	__onNodeDidMount: function (node, nodeProps, nodeState){
-		this._nodes[nodeProps.id] = node;
+		this._nodes[node.getId()] = node;
 	},
 	__onNodeDrag: function (){
 
@@ -60,13 +58,26 @@ module.exports = React.createClass({
 		link.setTarget(_target);
 		link.setSource(_source);
 		link.reset();
-		this._links[link._id] = link;
+		this._links[link.getId()] = link;
 	},
 	getData: function (){
 		return this.state;
 	},
 	setData: function (data){
-		this.setState({ nodes: data.nodes, links: data.links });
+		if(data){
+			var _obj = {};
+			if(data.nodes){
+				_obj.nodes = data.nodes;
+			}
+			if(data.links){
+				_obj.links = data.links;
+			}
+			if(Object.keys(_obj).length){
+				this.setState(_obj);
+			}
+		}
+
+		return this;
 	},
 	addLink: function (target, source){
 		this.state.links.push({ target: target, source: source });
@@ -132,9 +143,10 @@ module.exports = React.createClass({
 		this._nodes = {};
 		this._links = {};
 		return (
-			<div className="c-flow-canvas" >
+			<div className="rt-flow-canvas" >
 				{
 					(this.state.nodes||[]).map(function (node, index){
+						node.id = node.id||zn.uuid();
 						return <Node key={zn.uuid()}
 									index={index}
 									selected={this.state.selectNode===node?true:false}
@@ -143,6 +155,7 @@ module.exports = React.createClass({
 									editable={this.props.editable||node.editable}
 									draggable={this.props.draggable||node.draggable}
 									render={this.props.nodeRender}
+									onNodeEditDragEnd={this.props.onNodeEditDragEnd}
 									onDidMount={this.__onNodeDidMount}
 									onNodeDrag={this.__onNodeDrag}
 									onNodeDragEnd={this.__onNodeDragEnd}

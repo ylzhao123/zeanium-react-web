@@ -43,6 +43,9 @@ module.exports = React.createClass({
 		this.highLight(false);
 		this.props.onDidMount && this.props.onDidMount(this, this.props);
 	},
+	getId: function getId() {
+		return this._id;
+	},
 	reset: function reset(targetPosition, sourcePosition) {
 		var _bound = this.__calculateSVGBound(targetPosition, sourcePosition);
 		_bound && this.setState({ svgStyle: _bound });
@@ -170,7 +173,7 @@ module.exports = React.createClass({
 	render: function render() {
 		return React.createElement(
 			'svg',
-			{ className: 'graph-link', version: '1.1', xmlns: 'http://www.w3.org/2000/svg', style: this.state.svgStyle },
+			{ className: 'rt-graph-link', version: '1.1', xmlns: 'http://www.w3.org/2000/svg', style: this.state.svgStyle },
 			React.createElement(
 				'defs',
 				null,

@@ -45,6 +45,9 @@ module.exports = React.createClass({
 		this.highLight(false);
 		this.props.onDidMount && this.props.onDidMount(this, this.props);
 	},
+	getId: function (){
+		return this._id;
+	},
 	reset: function (targetPosition, sourcePosition){
 		var _bound = this.__calculateSVGBound(targetPosition, sourcePosition);
 		_bound && this.setState({ svgStyle: _bound });
@@ -163,7 +166,7 @@ module.exports = React.createClass({
     },
 	render:function(){
 		return (
-			<svg className="graph-link" version="1.1" xmlns="http://www.w3.org/2000/svg" style={this.state.svgStyle}>
+			<svg className="rt-graph-link" version="1.1" xmlns="http://www.w3.org/2000/svg" style={this.state.svgStyle}>
 				<defs>
 					<marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
 					  <path d="M0,0 L0,6 L9,3 z" fill="#f00" />
