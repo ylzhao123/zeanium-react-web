@@ -79,7 +79,7 @@ module.exports = React.createClass({
 		var _styles = this.__getStyles(); //h, v
 		return React.createElement(
 			Layout,
-			_extends({}, this.props, { className: "rt-activity-layout " + this.props.className }),
+			_extends({}, this.props, { className: zn.react.classname('rt-activity-layout', this.props.className) }),
 			React.createElement(
 				Layout.Header,
 				{ style: _styles.header },

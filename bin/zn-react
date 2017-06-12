@@ -1,0 +1,54 @@
+#!/usr/bin/env node
+
+'use strict';
+var zn = require('zeanium');
+
+zn.define([
+    'cli',
+    'node:path'
+], function (cli, path) {
+
+    /*Add current path to NODE_PATH*/
+    var _curr = process.cwd() + path.sep + 'node_modules';
+    var _parents = module.constructor._nodeModulePaths(_curr);
+    process.env.NODE_PATH = process.env.NODE_PATH + path.delimiter + _parents.join(path.delimiter);
+    module.constructor._initPaths();
+
+    var argv = process.argv;
+    var _env = {
+        $bin: argv[0],
+        $path: argv[1],
+        $command: argv[2]
+    }, _argv = {};
+
+    argv.slice(3).forEach(function (value, index){
+        var _temps = value.split(':'),
+            _value = _temps[1];
+        if(_value===undefined){
+            _value = true;
+        }
+        _argv[_temps[0]] = _value;
+    });
+
+    switch (_env.$command) {
+        case 'create':
+            new cli.Create(_env, _argv);
+            break;
+        case 'dev':
+            new cli.Develop(_env, _argv);
+            break;
+        case 'info':
+            zn.info(require('../package.json'));
+            break;
+        case 'install':
+            new cli.Install(_env, _argv);
+            break;
+        case 'run':
+            new cli.Run(_env, _argv);
+            break;
+        default:
+            zn.error('The system can not handler this command.');
+            break;
+    }
+
+}).exec();

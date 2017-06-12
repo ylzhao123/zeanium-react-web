@@ -1,22 +1,34 @@
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var webpack = require('webpack');
 var path = require('path');
-var zn = require('zeanium-node');
-var config = require('./webpack.init.js');
+var argv = process.argv;
+var uglifyIndex = argv.indexOf('--uglify'),
+    plugins = [
+        new ExtractTextPlugin("[name].css")
+    ];
 
-module.exports = zn.extend({
-    context: path.join(process.cwd(), 'src'),
+if(uglifyIndex!=-1){
+    plugins.push(new webpack.optimize.UglifyJsPlugin({
+        compress: {
+            warnings: false
+        }
+    }));
+}
+
+module.exports = {
+    context: path.join(process.cwd(), 'web', 'src'),
     entry: {
-        "index": ['./index.js']
-    },
-    output: {
-        path: path.join(process.cwd(), 'dist'),
-        filename: '[name].js'
+        "index": "index.js"
     },
     externals: {
         "react": "React",
         "react-dom": "ReactDOM"
     },
+    output: {
+        path: path.join(process.cwd(), 'web', 'dist'),
+        filename: '[name].js'
+    },
+    plugins: plugins,
     module: {
         // Disable handling of unknown requires
         unknownContextRegExp: /$^/,
@@ -31,7 +43,7 @@ module.exports = zn.extend({
         loaders: [
             {
                 test: /\.js[x]?$/,
-                exclude: /(node_modules)/,
+                exclude: /(node_modules|bower_components)/,
                 loader: 'babel',
                 query: {
                     presets: ['es2015','react'],
@@ -53,13 +65,5 @@ module.exports = zn.extend({
                 loader: 'url-loader?limit=8192'
             }
         ]
-    },
-    plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        }),
-        new ExtractTextPlugin("[name].css")
-    ]
-}, config);
+    }
+};

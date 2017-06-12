@@ -30,7 +30,7 @@ var Alert = React.createClass({
 	render: function(){
 		return (
 			<Modal active={this.state.active} top={this.state.top||100} width={this.state.width}>
-				<div className={'rt-alert ' + (this.state.className||'')} >
+				<div className={zn.react.classname('rt-alert', this.state.className)} >
 					{this.state.title && <div className="rt-alert-title">{this.state.title}</div>}
 					{this.state.content && <div className="rt-alert-content">{this.state.content}</div>}
 					<ButtonGroup

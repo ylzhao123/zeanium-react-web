@@ -33,7 +33,7 @@ var Alert = React.createClass({
 			{ active: this.state.active, top: this.state.top || 100, width: this.state.width },
 			React.createElement(
 				'div',
-				{ className: 'rt-alert ' + (this.state.className || '') },
+				{ className: zn.react.classname('rt-alert', this.state.className) },
 				this.state.title && React.createElement(
 					'div',
 					{ className: 'rt-alert-title' },
