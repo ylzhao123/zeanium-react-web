@@ -27,7 +27,7 @@ if(uglifyIndex!=-1){
 }
 
 module.exports = {
-    context: path.join(context),
+    context: path.join.apply(null, context),
     entry: entry,
     externals: {
         "react": "React",
