@@ -38,5 +38,8 @@ module.exports = zn.react = {
         }
 
         return _exports;
+    },
+    exports: function (config, handler){
+
     }
 };

@@ -4079,6 +4079,11 @@ select[disabled],
 .rt-toast > .toast-close:hover {
   color: #ec1961;
 }
+.rt-url-router {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 .c-uploader {
   width: 100%;
 }
@@ -5329,16 +5334,16 @@ select[disabled],
     -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
   }
 }
-.c-error-page {
+.rt-error-page {
   overflow: hidden;
 }
-.c-error-page > .container {
+.rt-error-page > .container {
   max-width: 360px;
   padding: 15px;
   margin: 30px auto;
   border: 2px solid #A08787;
 }
-.c-error-page > .container .detail {
+.rt-error-page > .container .detail {
   font-size: 2rem;
   line-height: 45px;
 }

@@ -1,5 +1,5 @@
 var React = require('react');
-var RTItem = require('../basic/RTItem');
+var RTItem = require('./RTItem');
 
 module.exports = React.createClass({
 	displayName:'Button',

@@ -38,8 +38,7 @@ module.exports = zn.react.Application = zn.Class({
             }
         },
         __initArgv: function (argv){
-            var _topRouters = {},
-                _subRouters = {},
+            var _routers = {},
                 _plugin = null,
                 _self = this;
 
@@ -47,15 +46,15 @@ module.exports = zn.react.Application = zn.Class({
                 this._routers = zn.deepEachObject(argv.routers, this.onLoading.bind(this));
             }
             this.get('plugins') && this.get('plugins').forEach(function (plugin){
+                console.log(plugin);
                 if(zn.is(plugin, 'string')){
                     plugin = _self.onLoading(plugin);
                 }
-                zn.extend(_topRouters, plugin.tools);
-                zn.extend(_subRouters, plugin.routers);
+                zn.extend(_routers, plugin.routers);
             });
 
-            zn.overwrite(this._routers, _topRouters);
-            zn.overwrite(this._routers['/main'], _subRouters);
+            zn.overwrite(this._routers, _routers);
+            zn.overwrite(this._routers['/main'], _routers);
 
             Store.setHost(this.get('host'));
         },

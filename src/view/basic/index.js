@@ -8,6 +8,7 @@ module.exports = zn.arrayValueToObject([
     'Card',
     'Panel',
     'Icon',
+    'Layout',
     'LineLock',
     'ListFilter',
     'RTList',

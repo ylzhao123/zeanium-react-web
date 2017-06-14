@@ -1,8 +1,38 @@
 var React = require('react');
 var ErrorPage = require('../page/ErrorPage');
 
-module.exports = React.createClass({
+var Router = React.createClass({
+	displayName: 'Router',
+	getInitialState: function (){
+		return {
+
+		};
+	},
+	componentDidMount: function (){
+
+	},
+	pop: function (){
+
+	},
+	push: function (){
+
+	},
+	render: function () {
+		return (
+			<div className={"rt-router "}>
+				{this.props.children}
+			</div>
+		);
+	}
+});
+
+var URLRouter = React.createClass({
 	displayName:'URLRouter',
+	getDefaultProps: function (){
+		return {
+			animate: false
+		}
+	},
 	getInitialState:function(){
 		return {
 			view: null,
@@ -16,6 +46,7 @@ module.exports = React.createClass({
 			_mapping = RouterMapping.create(_routers),
 			_router = new RestfulRouter();
 
+		this._historys = [];
 		Session.setHome(this.props.home);
 		Session.setGlobalSearch(this.props.search);
 
@@ -36,6 +67,7 @@ module.exports = React.createClass({
 				_router.get(path, function(req){
 					mapping.request = req;
 					_view = mapping.mappings.index || mapping.view;
+					_self._historys.push(mapping);
 					if(_self.state.view === _view){
 						if(mapping.mapping=='{*}'){ return; }
 						_self.setState({
@@ -56,11 +88,26 @@ module.exports = React.createClass({
 		this._router = _router;
 	},
 	render: function(){
-		return (
-			<div className="rt-url-router" style={{ overflow: 'hidden' }}>
-				{this.state.view && <this.state.view {...this.state.argv} />}
-				{this.props.children}
-			</div>
-		);
+		var View = null,
+			routers = this.props.routers;
+		if(this.props.animate){
+			return (
+				<div className={zn.react.classname("rt-url-router", this.props.className)} >
+					<Router view={View} argv={this.state.argv} ref={path}></Router>
+					<Router view={View} argv={this.state.argv} ref={path}></Router>
+					<Router view={View} argv={this.state.argv} ref={path}></Router>
+				</div>
+			);
+		}else {
+			return (
+				<div className={zn.react.classname("rt-url-router", this.props.className)} >
+					{this.state.view && <this.state.view {...this.state.argv} />}
+				</div>
+			);
+		}
 	}
 });
+
+URLRouter.Router = Router;
+
+module.exports = URLRouter;

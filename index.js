@@ -1,2 +1,2 @@
 require('./dist/index.css');
-module.exports = require('./build/index.js');
+module.exports = require('./dist/index.js');
