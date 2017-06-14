@@ -18,7 +18,7 @@ if(uglifyIndex!=-1){
 module.exports = {
     context: path.join(process.cwd(), 'web', 'src'),
     entry: {
-        "index": "index.js"
+        "index": ["./index.js"]
     },
     externals: {
         "react": "React",

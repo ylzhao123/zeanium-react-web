@@ -46,12 +46,14 @@ module.exports = zn.react.Application = zn.Class({
                 this._routers = zn.deepEachObject(argv.routers, this.onLoading.bind(this));
             }
             this.get('plugins') && this.get('plugins').forEach(function (plugin){
-                console.log(plugin);
+
                 if(zn.is(plugin, 'string')){
                     plugin = _self.onLoading(plugin);
                 }
-                zn.extend(_routers, plugin.routers);
+                zn.extend(_routers, plugin);
             });
+
+            console.log(_routers);
 
             zn.overwrite(this._routers, _routers);
             zn.overwrite(this._routers['/main'], _routers);
