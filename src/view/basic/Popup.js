@@ -35,6 +35,7 @@ var Popup = React.createClass({
 
 Popup.create = function (){
 	var _dom = document.createElement("div");
+	_dom.className = "rt-popup-container";
 	document.body.appendChild(_dom);
 	return ReactDOM.render(<Popup />, _dom);
 }

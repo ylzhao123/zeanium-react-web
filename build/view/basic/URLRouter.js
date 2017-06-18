@@ -1,8 +1,30 @@
 var React = require('react');
 var ErrorPage = require('../page/ErrorPage');
 
-module.exports = React.createClass({
+var Router = React.createClass({
+	displayName: 'Router',
+	getInitialState: function getInitialState() {
+		return {};
+	},
+	componentDidMount: function componentDidMount() {},
+	pop: function pop() {},
+	push: function push() {},
+	render: function render() {
+		return React.createElement(
+			'div',
+			{ className: "rt-router " },
+			this.props.children
+		);
+	}
+});
+
+var URLRouter = React.createClass({
 	displayName: 'URLRouter',
+	getDefaultProps: function getDefaultProps() {
+		return {
+			animate: false
+		};
+	},
 	getInitialState: function getInitialState() {
 		return {
 			view: null,
@@ -16,6 +38,7 @@ module.exports = React.createClass({
 		    _mapping = RouterMapping.create(_routers),
 		    _router = new RestfulRouter();
 
+		this._historys = [];
 		Session.setHome(this.props.home);
 		Session.setGlobalSearch(this.props.search);
 
@@ -36,6 +59,7 @@ module.exports = React.createClass({
 				_router.get(path, function (req) {
 					mapping.request = req;
 					_view = mapping.mappings.index || mapping.view;
+					_self._historys.push(mapping);
 					if (_self.state.view === _view) {
 						if (mapping.mapping == '{*}') {
 							return;
@@ -58,11 +82,26 @@ module.exports = React.createClass({
 		this._router = _router;
 	},
 	render: function render() {
-		return React.createElement(
-			'div',
-			{ className: 'rt-url-router', style: { overflow: 'hidden' } },
-			this.state.view && React.createElement(this.state.view, this.state.argv),
-			this.props.children
-		);
+		var View = null,
+		    routers = this.props.routers;
+		if (this.props.animate) {
+			return React.createElement(
+				'div',
+				{ className: zn.react.classname("rt-url-router", this.props.className) },
+				React.createElement(Router, { view: View, argv: this.state.argv, ref: path }),
+				React.createElement(Router, { view: View, argv: this.state.argv, ref: path }),
+				React.createElement(Router, { view: View, argv: this.state.argv, ref: path })
+			);
+		} else {
+			return React.createElement(
+				'div',
+				{ className: zn.react.classname("rt-url-router", this.props.className) },
+				this.state.view && React.createElement(this.state.view, this.state.argv)
+			);
+		}
 	}
 });
+
+URLRouter.Router = Router;
+
+module.exports = URLRouter;

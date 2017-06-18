@@ -18,6 +18,7 @@ module.exports = zn.arrayValueToObject([
     'Modal',
     'Page',
     'Popup',
+    'Popover',
     'ProgressRing',
     'PullRefresh',
     'Scrollable',

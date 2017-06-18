@@ -1,5 +1,4 @@
 var React = require('react');
-var Draggable = window.Draggable;
 
 module.exports = React.createClass({
 	displayName: 'Link',
@@ -26,6 +25,11 @@ module.exports = React.createClass({
 			zIndex: 0
 		};
 	},
+	componentDidMount: function componentDidMount() {
+		this._id = zn.uuid();
+		this.highLight(false);
+		this.props.onDidMount && this.props.onDidMount(this, this.props);
+	},
 	setTarget: function setTarget(value) {
 		if (value) {
 			this._target = value;
@@ -37,11 +41,6 @@ module.exports = React.createClass({
 			this._source = value;
 			value.setLink(this._id, this);
 		}
-	},
-	componentDidMount: function componentDidMount() {
-		this._id = zn.uuid();
-		this.highLight(false);
-		this.props.onDidMount && this.props.onDidMount(this, this.props);
 	},
 	getId: function getId() {
 		return this._id;
@@ -163,12 +162,37 @@ module.exports = React.createClass({
 			y2: _y2
 		});
 
+		//console.log(this.drawLineArrow(_x1, _y1, _x2, _y2));
+
 		return {
 			left: _x,
 			top: _y,
 			width: _width,
 			height: _height
 		};
+	},
+	drawLineArrow: function drawLineArrow(x1, y1, x2, y2) {
+		var path;
+		var slopy, cosy, siny;
+		var Par = 10.0;
+		var x3, y3;
+		slopy = Math.atan2(y1 - y2, x1 - x2);
+		cosy = Math.cos(slopy);
+		siny = Math.sin(slopy);
+
+		path = "M" + x1 + "," + y1 + " L" + x2 + "," + y2;
+
+		x3 = (Number(x1) + Number(x2)) / 2;
+		y3 = (Number(y1) + Number(y2)) / 2;
+
+		path += " M" + x3 + "," + y3;
+
+		path += " L" + (Number(x3) + Number(Par * cosy - Par / 2.0 * siny)) + "," + (Number(y3) + Number(Par * siny + Par / 2.0 * cosy));
+
+		path += " M" + (Number(x3) + Number(Par * cosy + Par / 2.0 * siny) + "," + (Number(y3) - Number(Par / 2.0 * cosy - Par * siny)));
+		path += " L" + x3 + "," + y3;
+
+		return path;
 	},
 	render: function render() {
 		return React.createElement(
@@ -179,11 +203,11 @@ module.exports = React.createClass({
 				null,
 				React.createElement(
 					'marker',
-					{ id: 'arrow', markerWidth: '10', markerHeight: '10', refX: '0', refY: '3', orient: 'auto', markerUnits: 'strokeWidth' },
+					{ id: 'markerArrow', markerWidth: '10', markerHeight: '10', refX: '0', refY: '3', orient: 'auto', markerUnits: 'strokeWidth' },
 					React.createElement('path', { d: 'M0,0 L0,6 L9,3 z', fill: '#f00' })
 				)
 			),
-			React.createElement('line', { className: 'line', x1: this.state.x1, y1: this.state.y1, x2: this.state.x2, y2: this.state.y2, style: this.state.lineStyle })
+			React.createElement('line', { className: 'line', 'marker-mid': 'url(#markerArrow)', x1: this.state.x1, y1: this.state.y1, x2: this.state.x2, y2: this.state.y2, style: this.state.lineStyle })
 		);
 	}
 });

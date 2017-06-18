@@ -99,7 +99,15 @@ var ListView = React.createClass({
 			value: this.__valueHandler(item, index),
 			currIndex: index
 		}, function () {
-			this.props.onClick && this.props.onClick(this.state.value, rtitem, this, item, event);
+			var _obj = {
+				value: this.state.value,
+				self: this,
+				rtitem: rtitem,
+				item: item,
+				index: index,
+				event: event
+			};
+			this.props.onClick && this.props.onClick(_obj);
 			this.props.onItemClick && this.props.onItemClick(this.state.value, rtitem, this, item, event);
 		}.bind(this));
 	},

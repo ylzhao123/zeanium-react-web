@@ -77,6 +77,7 @@ var Alert = React.createClass({
 
 Alert.create = function () {
 	var _dom = document.createElement("div");
+	_dom.className = "rt-alert-container";
 	document.body.appendChild(_dom);
 	return ReactDOM.render(React.createElement(Alert, null), _dom);
 };

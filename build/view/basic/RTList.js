@@ -146,10 +146,10 @@ module.exports = React.createClass({
 		);
 	},
 	getItemText: function getItemText(item) {
-		return item[this.props.textKey];
+		return item ? item[this.props.textKey] : null;
 	},
 	getItemValue: function getItemValue() {
-		return item[this.props.valueKey];
+		return item ? item[this.props.valueKey] : null;
 	},
 	render: function render() {
 		if (this.state.loading) {

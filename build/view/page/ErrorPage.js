@@ -9,7 +9,7 @@ module.exports = React.createClass({
 	render: function render() {
 		return React.createElement(
 			'div',
-			{ className: 'c-error-page' },
+			{ className: 'rt-error-page' },
 			React.createElement(
 				'div',
 				{ className: 'container' },

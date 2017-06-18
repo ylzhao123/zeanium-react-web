@@ -137,10 +137,6 @@ module.exports = React.createClass({
 		if (_result === false) {
 			return false;
 		}
-		if (!this.props.action) {
-			alert('Form action is undefined.');
-			return;
-		}
 
 		for (var key in this.state.hiddens) {
 			_result[key] = _result[key] || this.state.hiddens[key];
@@ -152,6 +148,10 @@ module.exports = React.createClass({
 		if (_temp !== false) {
 			_result = _temp || _result;
 		} else {
+			return;
+		}
+		if (!this.props.action) {
+			alert('Form action is undefined.');
 			return;
 		}
 		this.loading(true);

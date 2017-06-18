@@ -55,10 +55,10 @@ module.exports = React.createClass({
 	__onLinkDidMount: function (link, linkProps){
 		var _target = this._nodes[linkProps.target],
 			_source = this._nodes[linkProps.source];
+		this._links[link.getId()] = link;
 		link.setTarget(_target);
 		link.setSource(_source);
 		link.reset();
-		this._links[link.getId()] = link;
 	},
 	getData: function (){
 		return this.state;
@@ -96,18 +96,34 @@ module.exports = React.createClass({
 		});
 		this.forceUpdate();
 	},
-	addNode: function (node){
+	addNode: function (node, from){
+		node.id = zn.uuid();
 		this.state.nodes.push(node);
+		if(from){
+			this.state.links.push({ target: node.id, source: from.getId() });
+		}
 		this.forceUpdate();
 	},
 	deleteNodeById: function (id){
+		var _nodeId = null;
 		this.state.nodes = this.state.nodes.filter(function (node, index) {
 			if(node.id !== id){
 				return true;
 			}else{
+				_nodeId = node.id;
 				return false;
 			}
 		});
+
+		if(_nodeId){
+			this.state.links = this.state.links.filter(function (link, index){
+				if(link.source == _nodeId || link.target == _nodeId){
+					return false;
+				}else {
+					return true;
+				}
+			});
+		}
 
 		this.forceUpdate();
 	},
@@ -142,6 +158,7 @@ module.exports = React.createClass({
 	render:function(){
 		this._nodes = {};
 		this._links = {};
+		zn.debug('FlowCanvas data: ', this.state.nodes, this.state.links);
 		return (
 			<div className="rt-flow-canvas" >
 				{
@@ -152,6 +169,8 @@ module.exports = React.createClass({
 									selected={this.state.selectNode===node?true:false}
 									data={node}
 									canvas={this}
+									onContextMenu={this.props.onNodeContextMenu}
+									className={this.props.nodeClassName}
 									editable={this.props.editable||node.editable}
 									draggable={this.props.draggable||node.draggable}
 									render={this.props.nodeRender}
@@ -160,7 +179,7 @@ module.exports = React.createClass({
 									onNodeDrag={this.__onNodeDrag}
 									onNodeDragEnd={this.__onNodeDragEnd}
 									onClick={(event, instance)=>this.__onNodeClick(event, instance, node)}
-									{...node}/>;
+									{...node} />;
 					}.bind(this))
 				}
 				{

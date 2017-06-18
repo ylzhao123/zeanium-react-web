@@ -92,6 +92,7 @@ Popover.getItem = function (name) {
 
 Popover.create = function (name, argv) {
 	var _dom = document.createElement("div");
+	_dom.className = "rt-popover-container";
 	document.body.appendChild(_dom);
 	return Popover._items[name] = ReactDOM.render(React.createElement(Popover, argv), _dom), Popover._items[name];
 };
@@ -99,7 +100,7 @@ Popover.create = function (name, argv) {
 Popover.render = function (args, callback) {
 	var _item = Popover.getItem(args.name || '_click');
 	if (_item) {
-		_item.setState(zn.extend({ active: true, content: null }, args), function () {
+		_item.setState(zn.extend({ active: true, content: null, style: null }, args), function () {
 			callback && callback(_item, args);
 		});
 	}
@@ -121,9 +122,6 @@ Popover.closeAll = function () {
 		item.close();
 	}), this;
 };
-
-Popover.global = true;
-window.Popover = Popover;
 
 ['click', 'mouseover'].forEach(function (event) {
 	Popover.create('_' + event, { triggerEvent: event });

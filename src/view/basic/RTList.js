@@ -127,10 +127,10 @@ module.exports = React.createClass({
 		return <li key={index}>{_content}</li>;
 	},
 	getItemText: function (item){
-		return item[this.props.textKey];
+		return item?item[this.props.textKey]:null;
 	},
 	getItemValue: function (){
-		return item[this.props.valueKey];
+		return item?item[this.props.valueKey]:null;
 	},
 	render: function(){
 		if(this.state.loading){

@@ -53,8 +53,6 @@ module.exports = zn.react.Application = zn.Class({
                 zn.extend(_routers, plugin);
             });
 
-            console.log(_routers);
-
             zn.overwrite(this._routers, _routers);
             zn.overwrite(this._routers['/main'], _routers);
 

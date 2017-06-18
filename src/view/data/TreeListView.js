@@ -172,7 +172,7 @@ var TreeListView = React.createClass({
 	},
 	__itemRender: function (item, index){
 		var _content = this.props.itemRender && this.props.itemRender(item, index);
-		if(!_content){
+		if(!_content && item){
 			var _checked = this.props.checked,
 				_itemValue = (item[this.props.valueKey]) + ',';
 			if(!_checked){
